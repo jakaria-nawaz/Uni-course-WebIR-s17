@@ -56,8 +56,8 @@ def iter_corpus_docs(filename):
                 cur_doc['content'] += line + '\n'
 
 if __name__ == '__main__':
-    matches = naive_search('simplewiki-20160501-extracted-devel.xml', 'test')
-    # matches = naive_search('simplewiki-20160501-extracted.xml', 'test')
+    # matches = naive_search('simplewiki-20160501-extracted-devel.xml', 'test')
+    matches = naive_search('simplewiki-20160501-extracted.xml', 'test')
     for match in matches:
         print('-', match)
     print('({} matches found)'.format(len(matches)))

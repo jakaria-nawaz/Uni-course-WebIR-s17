@@ -68,19 +68,21 @@ import os
 
 if __name__ == '__main__':
     for i in range(1, 10): # iterates the loop of 10 files
+        print('For corpus ',i)
         start = time.time() # takes the start time of the search
         matches = naive_search('simplewiki-20160501-extracted-%r.xml'% i, search_string)
         for match in matches:
             size_in_byte = os.path.getsize('simplewiki-20160501-extracted-%r.xml'% i) # gets the file size in bytes
             size_in_mebibyte = size_in_byte/1048576 # converts file size to MiB
-            print ('File size : ','%.2f' % size_in_mebibyte,'MiB')
-            stop = time.time() # takes the end time of the search
-            duration = (stop-start)/60 # converts seconds into minutes
-            print ('Search time :','%.2f' % duration, 'minutes')
             print('-', match)
+        stop = time.time() # takes the end time of the search
+        duration = (stop-start)/60 # converts seconds into minutes
+        print ('Search time :','%.2f' % duration, 'minutes')
+        print ('File size : ','%.2f' % size_in_mebibyte,'MiB')
         file_size_set.append('%.2f' % size_in_mebibyte)
         time_set.append('%.2f' % duration)
         print('({} matches found)'.format(len(matches)))
+        print('\n')
     # print (file_size_set)
     # print (time_set)
     plt.plot(file_size_set, time_set)
