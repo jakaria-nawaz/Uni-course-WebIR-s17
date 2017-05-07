@@ -1,52 +1,31 @@
-#!/usr/bin/env python3
-# MD Jakaria Nawaz,Mohammad Nizam Uddin,Shreya Chatterjee,Md. Shohel Ahamad
+# ===========================================================
+#                     Group - Gamma                         =
+# ===========================================================
+# Mohammad Nizam Uddin                                      =
+# Md. Shohel Ahamad                                         =
+# MD Jakaria Nawaz                                          =
+# Shreya Chatterjee                                         =
+# ===========================================================
+
 def naive_search(filename, keyword):
-    """Find documents in a corpus that contain a keyword.
-
-    The search is case-insensitive.
-
-    Args:
-        filename: Path to the corpus file.
-        keyword: The keyword that returned documents should contain.
-
-    Returns:
-        A set of the titles of all documents that contained the word.
-    """
-    titleSet = []
-    keyword = keyword.lower()
+    titleSet = [] # set of titles that has the keyword match
     for doc in iter_corpus_docs(filename):
+        # print(doc['id'], doc['url'], doc['title'], doc['content'])
         match_result = find_match(doc['content'], keyword)
         if match_result:
             titleSet.append(doc['title'])
+
     return set(titleSet)
     # raise NotImplementedError
 
 def find_match(doc_content, keyword):
-    doc_content = doc_content.lower()
-    content_words = doc_content.split()
-    return keyword in content_words
+    doc_content = doc_content.lower() # converts the content text into lowercase
+    content_words = doc_content.split() # split at whitespace the strings of the content
+    return keyword in content_words # match keyword in content_words, if found returns to naive_search function
 
 def iter_corpus_docs(filename):
-    """Iterates over all documents in a corpus.
+    # Iterates over all documents in a corpus.
 
-    Example:
-        Use this function like this::
-
-            for doc in iter_corpus_docs("simplewiki-20160501-extracted-1.xml"):
-                print(doc['id'], doc['url'], doc['title'], doc['content'])
-
-    Args:
-        filename: Path to the corpus file.
-
-    Returns:
-        An iterator over all documents in the corpus. Each element of the
-        iterator is a dict that represent one document, e.g.::
-
-            {'id': '1',
-             'url': 'https://simple.wikipedia.org/wiki?curid=1',
-             'title': 'April',
-             'content': '...'}
-    """
     import re
     doc_pattern = re.compile('^<doc id="(.*)" url="(.*)" title="(.*)">$')
 
