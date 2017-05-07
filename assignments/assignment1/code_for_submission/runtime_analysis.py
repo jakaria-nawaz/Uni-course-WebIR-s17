@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 # ===========================================================
 #                     Group - Gamma                         =
 # ===========================================================
@@ -7,10 +9,6 @@
 # Shreya Chatterjee                                         =
 # ===========================================================
 
-
-
-
-
 print ("Enter your keyword",)
 prompt = '> '
 
@@ -18,6 +16,7 @@ search_string = input(prompt)
 
 def naive_search(filename, keyword):
     titleSet = [] # set of titles that has the keyword match
+    keyword = keyword.lower() # make the keyword lower case
     for doc in iter_corpus_docs(filename):
         # print(doc['id'], doc['url'], doc['title'], doc['content'])
         match_result = find_match(doc['content'], keyword)
@@ -39,7 +38,7 @@ def iter_corpus_docs(filename):
     doc_pattern = re.compile('^<doc id="(.*)" url="(.*)" title="(.*)">$')
 
     cur_doc = None
-    with open(filename) as file:
+    with open(filename, encoding="utf-8") as file:
         for line_no, line in enumerate(file):
             line = line[:-1]
             if line == '<corpus>' or line == '</corpus>':

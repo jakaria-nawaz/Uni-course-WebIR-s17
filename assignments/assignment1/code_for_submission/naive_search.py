@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 # ===========================================================
 #                     Group - Gamma                         =
 # ===========================================================
@@ -9,6 +11,7 @@
 
 def naive_search(filename, keyword):
     titleSet = [] # set of titles that has the keyword match
+    keyword = keyword.lower() # make the keyword lower case
     for doc in iter_corpus_docs(filename):
         # print(doc['id'], doc['url'], doc['title'], doc['content'])
         match_result = find_match(doc['content'], keyword)
@@ -30,7 +33,7 @@ def iter_corpus_docs(filename):
     doc_pattern = re.compile('^<doc id="(.*)" url="(.*)" title="(.*)">$')
 
     cur_doc = None
-    with open(filename) as file:
+    with open(filename, encoding="utf-8") as file:
         for line_no, line in enumerate(file):
             line = line[:-1]
             if line == '<corpus>' or line == '</corpus>':
@@ -54,6 +57,7 @@ def iter_corpus_docs(filename):
 
 if __name__ == '__main__':
     matches = naive_search('simplewiki-20160501-extracted-devel.xml', 'test')
+    # matches = naive_search('simplewiki-20160501-extracted.xml', 'test')
     for match in matches:
         print('-', match)
     print('({} matches found)'.format(len(matches)))
